@@ -79,4 +79,19 @@ public class ScribanUnitTests
         // Assert
         Assert.Equal("Nombre: Juan | Documento: 12345678", result);
     }
+
+    [Fact]
+    public void Render_WithNewLineCharacters_PreservesNewLines()
+    {
+        // Arrange
+        var template = Template.Parse("Línea 4\nLínea 2\nLínea 3");
+
+        // Act
+        var result = template.Render();
+
+        // Assert
+        Assert.Equal("Línea 4\nLínea 2\nLínea 3", result);
+
+        File.WriteAllBytes("ScribanNewLinesTest.txt", System.Text.Encoding.UTF8.GetBytes(result));
+    }
 }
